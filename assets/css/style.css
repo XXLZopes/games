@@ -1,0 +1,66 @@
+#body {
+    background-color: rgb(232, 224, 220);
+    width: 350px;
+    height: 600px;
+    border-radius: 2%;
+    border-bottom-right-radius: 15%;
+    display: flex;
+    justify-content: center;
+
+}
+#screen-border {
+    background-color: rgb(133,130,145);
+    border-radius: 5%;
+    border-bottom-right-radius: 15%;
+    width: 300px;
+    height: 250px;
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+#screen {
+    background-color: rgb(129, 147, 48);
+    width: 200px;
+    height: 200px;
+}
+
+#button-container {
+display: flex;
+position: absolute;
+top: 460px;
+left: 25px;
+justify-content: flex-end;
+align-items: flex-end;
+width:fit-content;
+height: 68px;
+}
+
+.moving-button-color {
+background-color: rgb(44, 43, 49);
+}
+
+#button-up {
+    height:25px;
+    width: 18px;
+    align-self: flex-start;
+    position: fixed;
+    left: 50px;
+}
+#button-down {
+    height:25px;
+    width: 18px;
+    align-self: flex-end;
+}
+#button-left {
+    width: 25px;
+    height: 18px;
+    align-self: center;
+}
+#button-right {
+    width: 25px;
+    height: 18px;
+    align-self: center;
+    
+}
