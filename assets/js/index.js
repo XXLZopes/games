@@ -1,4 +1,6 @@
 let colorChanging = document.querySelector(".color-changing");
+let scoreBoard = document.querySelector(".score");
+
 
 
 let colors = [, "#FFA500", "#EAE300", "#008000", "#0000FF", "#7F00FF", "#FF0000"];
@@ -190,7 +192,7 @@ let spawnPowerUp = () => {
     
 }
 spawnPowerUp();
-
+let score = 0;
 let usePowerUp = (addMove) => {
     for (let i = 0; i < powerLocations.length; i++) {
         for (let j = 0; j < powerLocations.length; j++) {
@@ -198,6 +200,8 @@ let usePowerUp = (addMove) => {
                 addMove();
                 powerLocations.splice(i, 1);
                 spawnPowerUp();
+                score++;
+                scoreBoard.textContent=`Score: ${score}`
             }
         }
     }
