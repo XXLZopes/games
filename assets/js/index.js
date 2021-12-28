@@ -36,10 +36,9 @@ let checkButtonLeft = false;
 let checkButtonRight = false;
 let interval;
 //Youngest to oldest [y, o];
-let snakePath = [170, 171, 172];
+let snakePath = [402, 171, 172];
 
 document.getElementsByTagName("DIV")[snakePath[0]].style.backgroundColor= "black";
-
 
 let removeMove = () => {
     if (snakePath.length > 1) {
@@ -47,10 +46,6 @@ let removeMove = () => {
         snakePath.pop();
     }
 }
-let removeQue = [];
-
-
-
 let addMoveUp = () => {  
     if ((snakePath[0] - 3) % 20 === 0) {
         snakePath.unshift(snakePath[0] + 19);
@@ -98,22 +93,33 @@ let addMoveRight = () => {
         document.getElementsByTagName("DIV")[snakePath[i]].style.backgroundColor= "black";
     }
 }
-let index = 0;
 let moveUp = () => {
+        
+        
         addMoveUp();
         removeMove();
+        usePowerUp(addMoveUp);
 }
 let moveDown = () => {
+    
+   
     addMoveDown();
     removeMove();
+    usePowerUp(addMoveDown);
 }
 let moveLeft = () => {
+   
+    
     addMoveLeft();
     removeMove(); 
+    usePowerUp(addMoveLeft);
 }
 let moveRight = () => {
+    
+    
     addMoveRight();
     removeMove();
+    usePowerUp(addMoveRight);
 }
 
 let setButtonsFalse = () => {
@@ -166,13 +172,32 @@ buttonRight.addEventListener('click', () => {
 
 })
 
+//Create random Dot
+let powerLocations = [];
+let spawnPowerUp = () => {
+    powerLocations.unshift(parseInt((Math.random() * 402) + 1));
+    document.getElementsByTagName("DIV")[powerLocations[0]].style.backgroundColor= "black";
+}
+spawnPowerUp();
+
+let usePowerUp = (addMove) => {
+    for (let i = 0; i < powerLocations.length; i++) {
+        for (let j = 0; j < powerLocations.length; j++) {
+            if (snakePath[i] === powerLocations[j]) {
+                addMove();
+                powerLocations.splice(i, 1);
+                spawnPowerUp();
+            }
+        }
+    }
+}
 //For snake game...
 
 //√√√ get dot moving in 1 direction √√√ 
 
 //√√√ add ability to change direction and keep dot moving in that direction √√√
 
-//add ability to add on dots to create snake of dots moving in 1 direction
+//√√√ add ability to add on dots to create snake of dots moving in 1 direction √√√
     /*
         1. Create path array  
         2. Add point to snake wherever path in array
@@ -180,10 +205,10 @@ buttonRight.addEventListener('click', () => {
         2. Ability to add grid location to path array
     */
 
-//add ability to move direction of snake
+//√√√ add ability to move direction of snake √√√
 
-//add random dot
+//√√√add random dot√√√
 
-//have it so when snake hits random dot it grows +1 in length
+//√√√have it so when snake hits random dot it grows +1 in length√√√
 
 //have it so when snake hits itself you lose.
