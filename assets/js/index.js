@@ -24,7 +24,7 @@ for (let i = 0; i < 400; i++) {
     screen.append(document.createElement("div"));
 }
 
-document.getElementsByTagName("DIV")[divSelector].style.backgroundColor= "black";
+
 
 let buttonUp = document.querySelector("#button-up");
 let buttonDown = document.querySelector("#button-down");
@@ -35,54 +35,85 @@ let checkButtonDown = false;
 let checkButtonLeft = false;
 let checkButtonRight = false;
 let interval;
+//Youngest to oldest [y, o];
+let snakePath = [170, 171, 172];
 
-let move = () => {
-    document.getElementsByTagName("DIV")[divSelector].style.backgroundColor= "black";
-    document.getElementsByTagName("DIV")[pastDivSelector].style.backgroundColor= "rgb(129, 147, 48)";
-}
-let moveUp = () => {
-    if ((divSelector - 3) % 20 === 0) {
-        divSelector+=19
-        move();
-        pastDivSelector = divSelector;
-    } else {
-        divSelector--;
-        move();
-        pastDivSelector = divSelector;
+document.getElementsByTagName("DIV")[snakePath[0]].style.backgroundColor= "black";
+
+
+let removeMove = () => {
+    if (snakePath.length > 1) {
+        document.getElementsByTagName("DIV")[snakePath[snakePath.length - 1]].style.backgroundColor= "rgb(129, 147, 48)";
+        snakePath.pop();
     }
+}
+let removeQue = [];
+
+
+
+let addMoveUp = () => {  
+    if ((snakePath[0] - 3) % 20 === 0) {
+        snakePath.unshift(snakePath[0] + 19);
+    } else {
+        snakePath.unshift(snakePath[0] - 1);
+    }
+    // console.log(snakePath + " Up");
+    for (let i = 0; i < snakePath.length; i++) {  
+        document.getElementsByTagName("DIV")[snakePath[i]].style.backgroundColor= "black";
+        
+    }
+}
+let addMoveDown = () => {
+    if ((snakePath[0] - 2) % 20 === 0) {
+        snakePath.unshift(snakePath[0] - 19);
+    } else {
+        snakePath.unshift(snakePath[0] + 1);
+    }
+    // console.log(snakePath + " Down");
+    for (let i = 0; i < snakePath.length; i++) {  
+        document.getElementsByTagName("DIV")[snakePath[i]].style.backgroundColor= "black";
+    }
+}
+let addMoveLeft = () => {
+
+    if ((snakePath[0] < 23)) {
+        snakePath.unshift(snakePath[0] + 380);
+    } else {
+        snakePath.unshift(snakePath[0] - 20);
+    }
+    // console.log(snakePath + " Left");
+    for (let i = 0; i < snakePath.length; i++) {
+        document.getElementsByTagName("DIV")[snakePath[i]].style.backgroundColor= "black";
+    }
+}
+let addMoveRight = () => {
+
+    if ((snakePath[0] - 383) >= 0) {
+        snakePath.unshift(snakePath[0] - 380);
+    } else {
+        snakePath.unshift(snakePath[0] + 20);
+    }
+    // console.log(snakePath + " Right");
+    for (let i = 0; i < snakePath.length; i++) {
+        document.getElementsByTagName("DIV")[snakePath[i]].style.backgroundColor= "black";
+    }
+}
+let index = 0;
+let moveUp = () => {
+        addMoveUp();
+        removeMove();
 }
 let moveDown = () => {
-    if ((divSelector - 2) % 20 === 0) {
-        divSelector-=19
-        move();
-        pastDivSelector = divSelector;
-    } else {
-        divSelector++;
-        move();
-        pastDivSelector = divSelector;
-    }
-}
-let moveRight = () => {
-    if ((divSelector - 383) >= 0) {
-        divSelector -= 380;
-        move();
-        pastDivSelector = divSelector;
-    } else {
-        divSelector += 20;
-        move();
-        pastDivSelector = divSelector;
-    }
+    addMoveDown();
+    removeMove();
 }
 let moveLeft = () => {
-    if ((divSelector < 23)) {
-        divSelector += 380;
-        move();
-        pastDivSelector = divSelector;
-    } else {
-        divSelector -= 20;
-        move();
-        pastDivSelector = divSelector;
-    }
+    addMoveLeft();
+    removeMove(); 
+}
+let moveRight = () => {
+    addMoveRight();
+    removeMove();
 }
 
 let setButtonsFalse = () => {
@@ -94,7 +125,7 @@ let setButtonsFalse = () => {
 
 
 buttonUp.addEventListener('click', () => {
-    if (!checkButtonUp) {
+    if (!checkButtonUp && !checkButtonDown) {
         setButtonsFalse();
         moveUp();
         clearInterval(interval);
@@ -104,7 +135,7 @@ buttonUp.addEventListener('click', () => {
 
 })
 buttonDown.addEventListener('click', () => {
-    if (!checkButtonDown) {
+    if (!checkButtonDown && !checkButtonUp) {
         setButtonsFalse();
         moveDown();
         clearInterval(interval);
@@ -113,18 +144,8 @@ buttonDown.addEventListener('click', () => {
     checkButtonDown = true;
     
 })
-buttonRight.addEventListener('click', () => {
-    if (!checkButtonRight) {
-        setButtonsFalse();
-        moveRight();
-        clearInterval(interval);
-        interval = setInterval(moveRight, 500);
-    }
-    checkButtonRight = true;
-
-})
 buttonLeft.addEventListener('click', () => {
-    if (!checkButtonLeft) {
+    if (!checkButtonLeft && !checkButtonRight) {
         setButtonsFalse();
         moveLeft();
         clearInterval(interval);
@@ -134,6 +155,16 @@ buttonLeft.addEventListener('click', () => {
     checkButtonLeft = true;
     
 })
+buttonRight.addEventListener('click', () => {
+    if (!checkButtonRight && !checkButtonLeft) {
+        setButtonsFalse();
+        moveRight();
+        clearInterval(interval);
+        interval = setInterval(moveRight, 500);
+    }
+    checkButtonRight = true;
+
+})
 
 //For snake game...
 
@@ -142,6 +173,12 @@ buttonLeft.addEventListener('click', () => {
 //√√√ add ability to change direction and keep dot moving in that direction √√√
 
 //add ability to add on dots to create snake of dots moving in 1 direction
+    /*
+        1. Create path array  
+        2. Add point to snake wherever path in array
+        3. Remove point from snake whenever point is removed from path array
+        2. Ability to add grid location to path array
+    */
 
 //add ability to move direction of snake
 
