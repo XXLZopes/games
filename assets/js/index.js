@@ -36,7 +36,7 @@ let checkButtonLeft = false;
 let checkButtonRight = false;
 let interval;
 //Youngest to oldest [y, o];
-let snakePath = [402, 171, 172];
+let snakePath = [3,4,5,6,7,8,9,10];
 
 document.getElementsByTagName("DIV")[snakePath[0]].style.backgroundColor= "black";
 
@@ -97,6 +97,7 @@ let moveUp = () => {
         
         
         addMoveUp();
+        lose();
         removeMove();
         usePowerUp(addMoveUp);
 }
@@ -104,6 +105,7 @@ let moveDown = () => {
     
    
     addMoveDown();
+    lose();
     removeMove();
     usePowerUp(addMoveDown);
 }
@@ -111,6 +113,7 @@ let moveLeft = () => {
    
     
     addMoveLeft();
+    lose();
     removeMove(); 
     usePowerUp(addMoveLeft);
 }
@@ -118,10 +121,10 @@ let moveRight = () => {
     
     
     addMoveRight();
+    lose();
     removeMove();
     usePowerUp(addMoveRight);
 }
-
 let setButtonsFalse = () => {
     checkButtonUp = false;
     checkButtonDown = false;
@@ -171,12 +174,20 @@ buttonRight.addEventListener('click', () => {
     checkButtonRight = true;
 
 })
-
 //Create random Dot
 let powerLocations = [];
 let spawnPowerUp = () => {
-    powerLocations.unshift(parseInt((Math.random() * 402) + 1));
-    document.getElementsByTagName("DIV")[powerLocations[0]].style.backgroundColor= "black";
+    powerLocations.unshift(parseInt((Math.random() * 402) + 3));
+    document.getElementsByTagName("DIV")[powerLocations[0]].style.backgroundColor= "white";
+    
+    if (snakePath.length >= 5 && powerLocations.length < 2) {
+        spawnPowerUp();
+    }
+    else if (snakePath.length >= 3 && powerLocations.length < 1) {
+        spawnPowerUp();
+    }
+    
+    
 }
 spawnPowerUp();
 
@@ -187,6 +198,19 @@ let usePowerUp = (addMove) => {
                 addMove();
                 powerLocations.splice(i, 1);
                 spawnPowerUp();
+            }
+        }
+    }
+}
+
+let lose = () => {
+    for (let i = 1; i < snakePath.length; i++) {
+        if (snakePath[0] === snakePath[i]) {
+            console.log("Game Over!")
+            clearInterval(interval);
+            snakePath = [];
+            for (let i = 3; i < 403; i++) {
+                document.getElementsByTagName("DIV")[[i]].style.backgroundColor= "red";
             }
         }
     }
