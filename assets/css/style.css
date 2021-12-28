@@ -52,27 +52,22 @@ background-color: rgb(44, 43, 49);
     display: block;
     height:25px;
     width: 18px;
-    /* align-self: flex-start; */
-    /* position: fixed; */
     margin-bottom: 18px
 }
 #button-down {
     height:25px;
     width: 18px;
-    /* align-self: flex-end; */
     display: block;
 }
 #button-left {
     width: 25px;
     height: 18px;
-    /* align-self: center; */
     display: inline-block;
     margin-bottom: 25px;
 }
 #button-right {
     width: 25px;
     height: 18px;
-    /* align-self: center; */
     display: inline-block;
     margin-bottom: 25px;
     

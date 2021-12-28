@@ -38,7 +38,7 @@ let checkButtonLeft = false;
 let checkButtonRight = false;
 let interval;
 //Youngest to oldest [y, o];
-let snakePath = [3];
+let snakePath = [402];
 
 document.getElementsByTagName("DIV")[snakePath[0]].style.backgroundColor= "black";
 
@@ -145,6 +145,7 @@ buttonUp.addEventListener('click', () => {
     checkButtonUp = true;
 
 })
+
 buttonDown.addEventListener('click', () => {
     if (!checkButtonDown && !checkButtonUp) {
         setButtonsFalse();
@@ -176,33 +177,79 @@ buttonRight.addEventListener('click', () => {
     checkButtonRight = true;
 
 })
+window.addEventListener("keydown", () => {
+    
+    switch (window.event.key) {
+        case "ArrowUp":
+        if (!checkButtonDown && !checkButtonUp) {
+            setButtonsFalse();
+            moveUp();
+            clearInterval(interval);
+            interval = setInterval(moveUp, 500);
+        }
+        checkButtonUp = true;
+        break;
+        case "ArrowDown":
+        if (!checkButtonDown && !checkButtonUp) {
+            setButtonsFalse();
+            moveDown();
+            clearInterval(interval);
+            interval = setInterval(moveDown, 500);
+        }
+        checkButtonDown = true;
+        break;
+        case "ArrowLeft":
+        if (!checkButtonLeft && !checkButtonRight) {
+            setButtonsFalse();
+            moveLeft();
+            clearInterval(interval);
+            interval = setInterval(moveLeft, 500);
+        }
+        checkButtonLeft = true;
+        break;
+        case "ArrowRight":
+            if (!checkButtonRight && !checkButtonLeft) {
+                setButtonsFalse();
+                moveRight();
+                clearInterval(interval);
+                interval = setInterval(moveRight, 500);
+            }
+            checkButtonRight = true;
+            break;
+    }
+    
+});
 //Create random Dot
 let powerLocations = [];
 let spawnPowerUp = () => {
-    powerLocations.unshift(parseInt((Math.random() * 402) + 3));
+    let location = parseInt((Math.random() * 402) + 3);
+    
+    for (let i = 0; i < snakePath.length; i++) {
+        if (location === snakePath[i]) {
+            location = parseInt((Math.random() * 402) + 3);
+        }
+    }
+    powerLocations.unshift(location);
+    
     document.getElementsByTagName("DIV")[powerLocations[0]].style.backgroundColor= "white";
     
-    if (snakePath.length >= 5 && powerLocations.length < 2) {
+    if (snakePath.length >= 5 && powerLocations.length < 3 && snakePath.length < 399) {
         spawnPowerUp();
     }
-    else if (snakePath.length >= 3 && powerLocations.length < 1) {
+    else if (snakePath.length >= 3 && powerLocations.length < 2 && snakePath.length < 400) {
         spawnPowerUp();
-    }
-    
-    
+    }  
 }
 spawnPowerUp();
 let score = 0;
 let usePowerUp = (addMove) => {
     for (let i = 0; i < powerLocations.length; i++) {
-        for (let j = 0; j < powerLocations.length; j++) {
-            if (snakePath[i] === powerLocations[j]) {
-                addMove();
-                powerLocations.splice(i, 1);
-                spawnPowerUp();
-                score++;
-                scoreBoard.textContent=`Score: ${score}`
-            }
+        if (snakePath[0] === powerLocations[i]) {
+            addMove();
+            powerLocations.splice(i, 1);
+            spawnPowerUp();
+            score++;
+            scoreBoard.textContent=`Score: ${score}`
         }
     }
 }
