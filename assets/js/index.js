@@ -38,7 +38,7 @@ let checkButtonLeft = false;
 let checkButtonRight = false;
 let interval;
 //Youngest to oldest [y, o];
-let snakePath = [3,4,5,6,7,8,9,10];
+let snakePath = [3];
 
 document.getElementsByTagName("DIV")[snakePath[0]].style.backgroundColor= "black";
 
