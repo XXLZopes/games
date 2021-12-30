@@ -1,6 +1,6 @@
 let colorChanging = document.querySelector(".color-changing");
 let scoreBoard = document.querySelector(".score");
-
+let speed = 500; //in ms
 
 
 let colors = [, "#FFA500", "#EAE300", "#008000", "#0000FF", "#7F00FF", "#FF0000"];
@@ -95,33 +95,40 @@ let addMoveRight = () => {
         document.getElementsByTagName("DIV")[snakePath[i]].style.backgroundColor= "black";
     }
 }
+let setSpeed = () => {
+    if (score >= 30) {
+        speed = 250;
+    }
+    else if (score >= 20) {
+        speed = 300;
+    }
+    else if (score >= 10) {
+        speed = 400;
+    }
+}
 let moveUp = () => {
-        
-        
+        setSpeed();
         addMoveUp();
         lose();
         removeMove();
         usePowerUp(addMoveUp);
 }
 let moveDown = () => {
-    
-   
+    setSpeed();
     addMoveDown();
     lose();
     removeMove();
     usePowerUp(addMoveDown);
 }
 let moveLeft = () => {
-   
-    
+    setSpeed();
     addMoveLeft();
     lose();
     removeMove(); 
     usePowerUp(addMoveLeft);
 }
 let moveRight = () => {
-    
-    
+    setSpeed();
     addMoveRight();
     lose();
     removeMove();
@@ -135,12 +142,13 @@ let setButtonsFalse = () => {
 }
 
 
+
 buttonUp.addEventListener('click', () => {
     if (!checkButtonUp && !checkButtonDown) {
         setButtonsFalse();
         moveUp();
         clearInterval(interval);
-        interval = setInterval(moveUp, 500);
+        interval = setInterval(moveUp, speed);
     }
     checkButtonUp = true;
 
@@ -151,7 +159,7 @@ buttonDown.addEventListener('click', () => {
         setButtonsFalse();
         moveDown();
         clearInterval(interval);
-        interval = setInterval(moveDown, 500);
+        interval = setInterval(moveDown, speed);
     }
     checkButtonDown = true;
     
@@ -161,7 +169,7 @@ buttonLeft.addEventListener('click', () => {
         setButtonsFalse();
         moveLeft();
         clearInterval(interval);
-        interval = setInterval(moveLeft, 500);
+        interval = setInterval(moveLeft, speed);
     }
 
     checkButtonLeft = true;
@@ -172,7 +180,7 @@ buttonRight.addEventListener('click', () => {
         setButtonsFalse();
         moveRight();
         clearInterval(interval);
-        interval = setInterval(moveRight, 500);
+        interval = setInterval(moveRight, speed);
     }
     checkButtonRight = true;
 
@@ -185,7 +193,7 @@ window.addEventListener("keydown", () => {
             setButtonsFalse();
             moveUp();
             clearInterval(interval);
-            interval = setInterval(moveUp, 500);
+            interval = setInterval(moveUp, speed);
         }
         checkButtonUp = true;
         break;
@@ -194,7 +202,7 @@ window.addEventListener("keydown", () => {
             setButtonsFalse();
             moveDown();
             clearInterval(interval);
-            interval = setInterval(moveDown, 500);
+            interval = setInterval(moveDown, speed);
         }
         checkButtonDown = true;
         break;
@@ -203,7 +211,7 @@ window.addEventListener("keydown", () => {
             setButtonsFalse();
             moveLeft();
             clearInterval(interval);
-            interval = setInterval(moveLeft, 500);
+            interval = setInterval(moveLeft, speed);
         }
         checkButtonLeft = true;
         break;
@@ -212,7 +220,7 @@ window.addEventListener("keydown", () => {
                 setButtonsFalse();
                 moveRight();
                 clearInterval(interval);
-                interval = setInterval(moveRight, 500);
+                interval = setInterval(moveRight, speed);
             }
             checkButtonRight = true;
             break;
@@ -254,7 +262,6 @@ let usePowerUp = (addMove) => {
         }
     }
 }
-
 let lose = () => {
     for (let i = 1; i < snakePath.length; i++) {
         if (snakePath[0] === snakePath[i]) {
