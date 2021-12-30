@@ -227,6 +227,7 @@ let spawnPowerUp = () => {
     for (let i = 0; i < snakePath.length; i++) {
         if (location === snakePath[i]) {
             location = parseInt((Math.random() * 402) + 3);
+            i = 0;
         }
     }
     powerLocations.unshift(location);

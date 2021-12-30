@@ -1,3 +1,9 @@
+h1 {
+    display: flex;
+    justify-content: center;
+    
+}
+
 #body {
     background-color: rgb(232, 224, 220);
     width: 350px;
@@ -6,6 +12,9 @@
     border-bottom-right-radius: 15%;
     display: flex;
     justify-content: center;
+    margin: auto;
+    
+    
 
 }
 h1 {
@@ -36,9 +45,9 @@ h1 {
 
 #button-container {
 display: flex;
-position: absolute;
-margin-top: 350px;
-left: 25px;
+position:absolute;
+margin-top: 370px;
+padding-right: 232px;;
 align-items: flex-end;
 width:fit-content;
 height: fit-content;
@@ -71,4 +80,9 @@ background-color: rgb(44, 43, 49);
     display: inline-block;
     margin-bottom: 25px;
     
+}
+
+.score {
+   display: flex;
+   justify-content: center;
 }
