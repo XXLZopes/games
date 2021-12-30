@@ -1,7 +1,10 @@
+body {
+    background-color: rgb(78, 73, 73);
+}
+
 h1 {
     display: flex;
     justify-content: center;
-    
 }
 
 #body {
